@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:41:33 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/11/21 15:12:52 by ldrieske         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:33:00 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-#include <stdarg.h>
+# include <stdarg.h>
 
 int	ft_printf(const char *format, ...);
 
