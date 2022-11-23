@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 14:41:33 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/11/23 13:40:08 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/11/23 13:31:20 by ldrieske          #+#    #+#             */
+/*   Updated: 2022/11/23 13:49:03 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "../ft_printf.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdarg.h>
+char	ft_newchar(char a)
+{
+	char	res;
 
-int		ft_printf(const char *format, ...);
-char	ft_newchar(char a);
-
-#endif
+	res = a;
+	if (!res)
+		return (0);
+	return (res);
+}

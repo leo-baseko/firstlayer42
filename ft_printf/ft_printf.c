@@ -6,22 +6,46 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:45:10 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/11/22 15:02:44 by ldrieske         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:45:27 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-strict void	ft_writeft(char a)
+static void	ft_writeft(char a)
 {
+	//writes the character
 	if (a == 'c')
-		
+		ft_newchar(a);
+	//writes the string
+	else if (a == 's')
+		(void) a;
+	//writes void expression in hexa
+	else if (a == 'p')
+		(void) a;
+	//writes a decimal number
+	else if (a == 'd')
+		(void) a;
+	//writes an integer
+	else if (a == 'i')
+		(void) a;
+	//writes an unsigned decimal
+	else if (a == 'u')
+		(void) a;
+	//writes hexa values with lowercases
+	else if (a == 'x')
+		(void) a;
+	//writes hexa values with uppercases
+	else if (a == 'X')
+		(void) a;
+	else if (a == '%')
+		write(1, "%", 1);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	int		i;
-	char	*fval;
+	void	*fval;
 	va_list	valist;
 	
 	i = 0;
@@ -34,6 +58,7 @@ int	ft_printf(const char *format, ...)
 		{
 			fval = va_arg(valist, typeof(fval));
 			//write fval depending the type of value
+			ft_writeft(*fval);
 			i++;
 		}
 		write(1, &format[i], 1);
@@ -45,6 +70,7 @@ int	ft_printf(const char *format, ...)
 
 int	main()
 {
-	ft_printf("coucou45\n");
-	return (0);	
+	printf("coucou%c\n", 'a');
+	ft_printf("coucou%c45\n", 'a');
+	return (0);
 }

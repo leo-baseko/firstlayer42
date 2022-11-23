@@ -7,6 +7,7 @@ FLAGS =         -Wall -Werror -Wextra
 INCLUDE =       libftprintf.h \
 
 SRC =           ft_printf.c \
+				utils/ft_printf_utils.c
 
 SRCBONUS =      ft_printf_bonus.c \
 
