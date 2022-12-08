@@ -7,7 +7,7 @@ FLAGS =         -Wall -Werror -Wextra
 INCLUDE =       libftprintf.h \
 
 SRC =           ft_printf.c \
-				utils/ft_printf_utils.c
+				ft_putnbr_base.c
 
 SRCBONUS =      ft_printf_bonus.c \
 
@@ -21,20 +21,20 @@ INCS =          $(addprefix -I, $(INCLUDE))
 all :           $(NAME)
 
 $(NAME) :       $(OBJS)
-                                ar rcs $@ $^
+					ar rcs $@ $^
 
 clean :
-                        $(RM) $(OBJS) $(OBJSBONUS)
+				$(RM) $(OBJS) $(OBJSBONUS)
 
-fclean :        clean
-                        $(RM) $(NAME)
+fclean :		clean
+					$(RM) $(NAME)
 
 re :            fclean all
 
-.c.o:           $(SRCS)
-                        $(CC) -c -o $@ $< $(FLAGS)
+.c.o:			$(SRCS)
+					$(CC) -c -o $@ $< $(FLAGS)
 
-bonus :         $(OBJSBONUS)
-                                ar rcs $(NAME) $(OBJSBONUS)
+bonus :			$(OBJSBONUS)
+					ar rcs $(NAME) $(OBJSBONUS)
 
 .PHONY: all clean fclean re bonus
