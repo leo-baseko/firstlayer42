@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 14:41:33 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/12/13 15:34:20 by ldrieske         ###   ########.fr       */
+/*   Created: 2022/12/13 15:28:01 by ldrieske          #+#    #+#             */
+/*   Updated: 2022/12/13 15:30:02 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdarg.h>
-
-int		ft_printf(const char *format, ...);
-char	ft_newchar(char a);
-int		ft_putnbr_base(unsigned int nb, char *base, int len);
-int		ft_putchar(int c);
-int		ft_pointer_tohex(void *p, char *base, int len);
-
-#endif
+int	ft_printf_bonus(const char *format, ...)
+{
+    (void)	format;
+    return (0);
+}
