@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:28:01 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/12/13 15:30:02 by ldrieske         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:12:38 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	ft_printf_bonus(const char *format, ...)
 {
-    (void)	format;
-    return (0);
+	(void) format;
+	return (0);
 }

@@ -1,26 +1,27 @@
-NAME =          libftprintf.a
+NAME =			libftprintf.a
 
-RM =            rm -rf
-CC =            gcc
-FLAGS =         -Wall -Werror -Wextra
+RM =			rm -rf
+CC =			gcc
+FLAGS =			-Wall -Werror -Wextra
 
-INCLUDE =       libftprintf.h \
+INCLUDE =		ft_printf.h \
 
-SRC =           ft_printf.c \
-				ft_putnbr_base.c
+SRC =			ft_printf.c \
+				ft_putnbr_base.c \
+				utils/ft_printf_utils.c
 
-SRCBONUS =      ft_printf_bonus.c \
+SRCBONUS =		ft_printf_bonus.c \
 
-SRCS =          $(SRC)
-OBJS =          $(addsuffix .o, $(basename $(SRC)))
+SRCS =			$(SRC)
+OBJS =			$(addsuffix .o, $(basename $(SRC)))
 
-OBJSBONUS       = $(SRCBONUS:.c=.o)
+OBJSBONUS =		$(SRCBONUS:.c=.o)
 
-INCS =          $(addprefix -I, $(INCLUDE))
+INCS =			$(addprefix -I, $(INCLUDE))
 
-all :           $(NAME)
+all :			$(NAME)
 
-$(NAME) :       $(OBJS)
+$(NAME) :		$(OBJS)
 					ar rcs $@ $^
 
 clean :
@@ -29,7 +30,7 @@ clean :
 fclean :		clean
 					$(RM) $(NAME)
 
-re :            fclean all
+re :			fclean all
 
 .c.o:			$(SRCS)
 					$(CC) -c -o $@ $< $(FLAGS)
