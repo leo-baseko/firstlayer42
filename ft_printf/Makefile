@@ -8,14 +8,10 @@ INCLUDE =		ft_printf.h \
 
 SRC =			ft_printf.c \
 				ft_putnbr_base.c \
-				utils/ft_printf_utils.c
-
-SRCBONUS =		ft_printf_bonus.c \
+				ft_printf_utils.c
 
 SRCS =			$(SRC)
 OBJS =			$(addsuffix .o, $(basename $(SRC)))
-
-OBJSBONUS =		$(SRCBONUS:.c=.o)
 
 INCS =			$(addprefix -I, $(INCLUDE))
 
@@ -25,7 +21,7 @@ $(NAME) :		$(OBJS)
 					ar rcs $@ $^
 
 clean :
-				$(RM) $(OBJS) $(OBJSBONUS)
+				$(RM) $(OBJS)
 
 fclean :		clean
 					$(RM) $(NAME)
@@ -34,8 +30,5 @@ re :			fclean all
 
 .c.o:			$(SRCS)
 					$(CC) -c -o $@ $< $(FLAGS)
-
-bonus :			$(OBJSBONUS)
-					ar rcs $(NAME) $(OBJSBONUS)
 
 .PHONY: all clean fclean re bonus

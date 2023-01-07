@@ -6,11 +6,11 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:31:20 by ldrieske          #+#    #+#             */
-/*   Updated: 2022/12/28 15:10:21 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/01/07 15:54:04 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_putstr(const char *str)
 {
@@ -18,7 +18,10 @@ int	ft_putstr(const char *str)
 
 	i = 0;
 	if (!str)
-		return (0);
+	{	
+		write(1, "(null)", 6);
+		return (6);
+	}
 	while (str[i])
 		write(1, &str[i++], 1);
 	return (i);
