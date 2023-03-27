@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:53:30 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/03/21 11:08:45 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:56:47 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 80000
+#  define BUFFER_SIZE 2084
 # endif
 
 char	*get_next_line(int fd);

@@ -6,59 +6,55 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:27 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/03/21 11:45:07 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:15:28 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	line_count(char line)
+#include <string.h>
+char *get_next_line(int fd)
 {
-	static int	count;
-	(void)line;
+	int			i;
+	int			size;
+	char		*buffer;
+	size_t		numbytes;
 
-	count = 0;
-	return (0);
-}
-
-/*
- * get_next_line
- *
- * Returns the line that was read. If there's nothing/an error, returns NULL
- * 
- * int fd : file descriptor with the sweets lines we want
-*/
-
-char	*get_next_line(int fd)
-{
-	int		size;
-	char	*buffer;
-	size_t	numbytes;
-
+	//arranger max et min BUFFER_SIZE
 	size = (int)BUFFER_SIZE;
 	if (size > 100000 || size < 1)
 		size = 2048;
+	//malloc buffer
 	buffer = malloc(sizeof(char) * (size + 1));
 	if (!buffer)
 		return (0);
 	numbytes = 1;
+	//boucle tant qu'on n'arrive pas a la fin du fd
 	while (numbytes > 0)
+		numbytes = read(fd, buffer, size);
+	buffer[numbytes] = '\0';
+
+	char *coucou;
+	coucou = malloc(sizeof(char) * (numbytes + 1));
+	if (!coucou)
+		return (0);
+	i = 0;
+	while (buffer[i] != '\n' || buffer[i] != 0)
 	{
-		numbytes = read(fd, buffer, BUFFER_SIZE);
-		write(1, buffer, numbytes);
+		coucou[i] = buffer[i];
+		i++;
 	}
-	buffer[numbytes] = 0;
-	return (0);
+	coucou[i] = '\0';
+	free(buffer);
+	return (coucou);
 }
 
 int	main(void)
 {
-	int		fd;
+	int	fd;
 
-	fd = open("del_texte", O_RDONLY);
-	if (fd == -1)
-		return (0);
-	get_next_line(fd);
+	fd = open("test.txt", O_RDONLY);
+	printf("%s", get_next_line(fd));
 	close(fd);
 	return (0);
 }
