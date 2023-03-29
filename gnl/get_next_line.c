@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:27 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/03/27 19:32:08 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:34:02 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,76 @@
 
 #include <string.h>
 #include <ctype.h>
-char *get_next_line(int fd)
+
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int			i;
-	int			c;
-	int			d;
-	int			size;
-	char		*buffer;
-	size_t		numbytes;
-	static int	o;
-	
-	//arranger max et min BUFFER_SIZE
-	size = (int)BUFFER_SIZE;
-	if (size > 100000 || size < 1)
-		size = 2048;
-	//malloc buffer
-	buffer = malloc(sizeof(char) * (size));
-	if (!buffer)
-		return (0);
-	numbytes = 1;
-	c = 0;
-	//boucle tant qu'on n'arrive pas a la fin du fd
-	while (numbytes > 0)
-	{
-		numbytes = read(fd, buffer, size);
-		if (numbytes != 0)
-			c += numbytes;
-	}
-	
-	d = 0;
-	o = 0;
-	while (isprint(buffer[d]) != 0 && buffer[d] != '\n')
-		d++;
-	char *coucou;
-	coucou = malloc(sizeof(char) * (d + 1));
-	if (!coucou)
-		return (0);
+	char	*res;
+	size_t	len;
+	size_t	i;
+	size_t	j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len = strlen((char *)s1) + strlen((char *)s2);
+	res = malloc(sizeof(char) * len + 1);
+	if (!res)
+		return (NULL);
 	i = 0;
-	while (i < d)
+	while (s1[i] != '\0')
 	{
-		coucou[i] = buffer[i];
+		res[i] = s1[i];
 		i++;
 	}
-	coucou[i] = '\0';
-	free(buffer);
-	return (coucou);
+	j = 0;
+	while (s2[j] != '\0')
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
+}
+
+int	asnextline(char *string)
+{
+	int	i;
+	
+	i = 0;
+	while (string[i] != '\0')
+	{
+		if (string[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*get_next_line(int fd)
+{
+	char	*buffer;
+	char	*add;
+	// char	*result;
+	int		i;
+
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE));
+	if (!buffer)
+		return (0);
+	read(fd, buffer, BUFFER_SIZE);
+
+	add = malloc(sizeof(char) * (1));
+	if (!add)
+		return (0);
+	add = ft_strjoin(add, buffer);
+	printf("add 1 : %s\n", add);
+	printf("buffer 1 : %s\n", buffer);
+	read(fd, buffer, BUFFER_SIZE);
+	add = ft_strjoin(add, buffer);
+	printf("add 2 : %s\n", add);
+	printf("buffer 2 : %s\n", buffer);
+	read(fd, buffer, BUFFER_SIZE);
+	add = ft_strjoin(add, buffer);
+	printf("add 3 : %s\n", add);
+	printf("buffer 3 : %s\n", buffer);
+
+	i = 0;
+	return (0);
 }
 
 int	main(void)
