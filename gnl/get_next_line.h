@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:53:30 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/03/21 18:56:47 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:38:17 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <string.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 2084

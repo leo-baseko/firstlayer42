@@ -6,84 +6,59 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:27 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/03/29 16:34:02 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:00:29 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#include <string.h>
-#include <ctype.h>
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*res;
-	size_t	len;
-	size_t	i;
-	size_t	j;
-
-	if (!s1 || !s2)
-		return (NULL);
-	len = strlen((char *)s1) + strlen((char *)s2);
-	res = malloc(sizeof(char) * len + 1);
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		res[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j] != '\0')
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	return (res);
-}
-
-int	asnextline(char *string)
-{
-	int	i;
-	
-	i = 0;
-	while (string[i] != '\0')
-	{
-		if (string[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char	*get_next_line(int fd)
 {
+	int		cread;
+	int		ctotal;
+	char	congoing;
 	char	*buffer;
-	char	*add;
-	// char	*result;
-	int		i;
+	char	*newbuffer;
+	char	*result;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE));
+	cread = 0;
+	ctotal = 0;
+	buffer = malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buffer)
-		return (0);
-	read(fd, buffer, BUFFER_SIZE);
-
-	add = malloc(sizeof(char) * (1));
-	if (!add)
-		return (0);
-	add = ft_strjoin(add, buffer);
-	printf("add 1 : %s\n", add);
-	printf("buffer 1 : %s\n", buffer);
-	read(fd, buffer, BUFFER_SIZE);
-	add = ft_strjoin(add, buffer);
-	printf("add 2 : %s\n", add);
-	printf("buffer 2 : %s\n", buffer);
-	read(fd, buffer, BUFFER_SIZE);
-	add = ft_strjoin(add, buffer);
-	printf("add 3 : %s\n", add);
-	printf("buffer 3 : %s\n", buffer);
-
-	i = 0;
-	return (0);
+		return (NULL);
+	// chaud il va read 1 caractere a la fois
+	// c'est pas ce  qu'on veut : soucis d'optimisation
+	// faudrais par exemple lire chaque caractere du buffer a la place
+	// de plus on utilise pas de static la
+	while (read(fd, &congoing, 1) > 0)
+	{
+		buffer[cread] = congoing;
+		cread++;
+		ctotal++;
+		if (cread == BUFFER_SIZE)
+		{
+			newbuffer = malloc(sizeof(char) * (ctotal + BUFFER_SIZE));
+			if (newbuffer == NULL)
+				return (NULL);
+			memcpy(newbuffer, buffer, cread * sizeof(char));
+			free(buffer);
+			buffer = newbuffer;
+		}
+		if (congoing == '\n')
+			break ;
+	}
+	if (cread == 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	buffer[cread] = '\0';
+	result = malloc(sizeof(char) * (cread + 1));
+	if (!result)
+		return (NULL);
+	memcpy(result, buffer, (cread + 1) * sizeof(char));
+	free(buffer);
+	return (result);
 }
 
 int	main(void)
@@ -91,6 +66,11 @@ int	main(void)
 	int	fd;
 
 	fd = open("test.txt", O_RDONLY);
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
 	close(fd);
 	return (0);
