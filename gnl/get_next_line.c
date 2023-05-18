@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:27 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/16 17:28:07 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:47:30 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,16 @@ void	free_null(char **ptr)
 /*
  * merge_line 
  *
- * prend la position (?) et double buffer pour me casser les couilles ca ptn
- * il est long le code
- * si la position newline est egale ou inferieur a 0 -> on free le buffer
- * on utilise un tampon qui va prendre ft_substr
+ * Function will merge x line in buffer and return the result
+ * 
 */
-char	*merge_line(int newline_position, char **buffer)
+char	*merge_line(int nl_pos, char **buffer)
 {
 	char	*res;
 	char	*temp;
 
-	temp = NULL;
-	if (newline_position <= 0)
+	temp = 0;
+	if (nl_pos <= 0)
 	{
 		if (**buffer == '\0')
 		{
@@ -52,9 +50,9 @@ char	*merge_line(int newline_position, char **buffer)
 		*buffer = NULL;
 		return (res);
 	}
-	temp = ft_substr(*buffer, newline_position, BUFFER_SIZE);
+	temp = ft_substr(*buffer, nl_pos, BUFFER_SIZE);
 	res = *buffer;
-	res[newline_position] = 0;
+	res[nl_pos] = 0;
 	*buffer = temp;
 	return (res);
 }
@@ -63,6 +61,7 @@ char	*merge_line(int newline_position, char **buffer)
  * read_line
  * 
  * Returns the line that as been read
+ * 
 */
 char	*read_line(int fd, char **buffer, char *bunny)
 {

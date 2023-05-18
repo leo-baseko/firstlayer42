@@ -6,14 +6,14 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:39 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/16 15:46:53 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:54:25 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /*
- * strchr
+ * ft_strchr
  *
  * Returns a pointer to the first occurence of the character c in
  *      the s String
