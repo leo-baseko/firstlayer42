@@ -6,7 +6,7 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:27 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/18 17:47:30 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:03:15 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,33 @@ char	*merge_line(int nl_pos, char **buffer)
  * read_line
  * 
  * Returns the line that as been read
- * 
+ * Takes the file descriptor, buffer2 and the pointer to buffer
+ * Returns 
 */
-char	*read_line(int fd, char **buffer, char *bunny)
+char	*read_line(int fd, char **buffer, char *buffer2)
 {
 	char	*newline;
 	char	*temp;
 	int		b_read;
+	int		nl_pos;
 
 	newline = ft_strchr(*buffer, '\n');
 	temp = 0;
 	b_read = 0;
+	nl_pos = 0;
 	while (!newline)
 	{
-		b_read = read(fd, bunny, BUFFER_SIZE);
+		b_read = read(fd, buffer2, BUFFER_SIZE);
 		if (b_read <= 0)
 			return (merge_line(b_read, buffer));
-		bunny[b_read] = '\0';
-		temp = ft_strjoin(*buffer, bunny);
+		buffer2[b_read] = '\0';
+		temp = ft_strjoin(*buffer, buffer2);
 		free_null(buffer);
 		*buffer = temp;
 		newline = ft_strchr(*buffer, '\n');
 	}
-	return (merge_line(newline - *buffer + 1, buffer));
+	nl_pos = newline - *buffer + 1;
+	return (merge_line(nl_pos, buffer));
 }
 
 /*
@@ -95,18 +99,18 @@ char	*read_line(int fd, char **buffer, char *bunny)
 */
 char	*get_next_line(int fd)
 {
-	static char	*buffer[MAX_FD + 1];
-	char		*bunny;
+	static char	*buffer[FD_MAX + 1];
+	char		*buffer2;
 	char		*res;
 
-	if (fd < 0 || fd > MAX_FD || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > FD_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	bunny = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!bunny)
+	buffer2 = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer2)
 		return (NULL);
 	if (!buffer[fd])
 		buffer[fd] = ft_strdup("");
-	res = read_line(fd, &buffer[fd], bunny);
-	free_null(&bunny);
+	res = read_line(fd, &buffer[fd], buffer2);
+	free_null(&buffer2);
 	return (res);
 }
