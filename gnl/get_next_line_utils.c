@@ -6,18 +6,12 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:39 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/18 17:54:25 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:19:25 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*
- * ft_strchr
- *
- * Returns a pointer to the first occurence of the character c in
- *      the s String
-*/
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
@@ -31,11 +25,6 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *) &s[i]);
 }
 
-/*
- * ft_strlen
- *
- * Returns the length of the char
-*/
 size_t	ft_strlen(const char *a)
 {
 	size_t	i;
@@ -46,12 +35,6 @@ size_t	ft_strlen(const char *a)
 	return (i);
 }
 
-/*
- * ft_strdup
- *
- * Allocates sufficient memory (malloc) for a copy of s1
- * Returns a pointer of the copy
-*/
 char	*ft_strdup(const char *s1)
 {
 	char	*a;
@@ -72,16 +55,6 @@ char	*ft_strdup(const char *s1)
 	return (a);
 }
 
-/*
- * ft_substr
- * 
- * char const *s : initial String
- * unsigned int start : index of start
- * size_t len : length of the new String
- * 
- * Allocates and returns a substring from the string s beginning 
- * at index start and of maximum size len
-*/
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*res;
@@ -111,11 +84,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (res);
 }
 
-/*
- * ft_strjoin
- *
- * Returns a new String, result of the concatenation between s1 and s2
-*/
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;

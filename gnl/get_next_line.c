@@ -6,17 +6,12 @@
 /*   By: ldrieske <ldrieske@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 20:55:27 by ldrieske          #+#    #+#             */
-/*   Updated: 2023/05/19 19:03:15 by ldrieske         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:17:56 by ldrieske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*
- * free_null
- *
- * Take a pointer and frees it
-*/
 void	free_null(char **ptr)
 {
 	if (*ptr)
@@ -26,21 +21,24 @@ void	free_null(char **ptr)
 	}
 }
 
-/*
- * merge_line 
- *
- * Function will merge x line in buffer and return the result
- * 
-*/
-char	*merge_line(int nl_pos, char **buffer)
+char	*fd_error(char **buffer)
+{
+	free(*buffer);
+	*buffer = NULL;
+	return (NULL);
+}
+
+char	*substract_line(int nl_pos, char **buffer)
 {
 	char	*res;
 	char	*temp;
 
 	temp = 0;
-	if (nl_pos <= 0)
+	if (nl_pos == -1)
+		return (fd_error(buffer));
+	if (nl_pos == 0)
 	{
-		if (**buffer == '\0')
+		if (!**buffer)
 		{
 			free(*buffer);
 			*buffer = NULL;
@@ -57,13 +55,6 @@ char	*merge_line(int nl_pos, char **buffer)
 	return (res);
 }
 
-/*
- * read_line
- * 
- * Returns the line that as been read
- * Takes the file descriptor, buffer2 and the pointer to buffer
- * Returns 
-*/
 char	*read_line(int fd, char **buffer, char *buffer2)
 {
 	char	*newline;
@@ -79,24 +70,17 @@ char	*read_line(int fd, char **buffer, char *buffer2)
 	{
 		b_read = read(fd, buffer2, BUFFER_SIZE);
 		if (b_read <= 0)
-			return (merge_line(b_read, buffer));
-		buffer2[b_read] = '\0';
+			return (substract_line(b_read, buffer));
+		buffer2[b_read] = 0;
 		temp = ft_strjoin(*buffer, buffer2);
 		free_null(buffer);
 		*buffer = temp;
 		newline = ft_strchr(*buffer, '\n');
 	}
 	nl_pos = newline - *buffer + 1;
-	return (merge_line(nl_pos, buffer));
+	return (substract_line(nl_pos, buffer));
 }
 
-/*
- * get_next_line
- * 
- * Returns a line read from a file descriptor
- * The line is either finishing by '\n' or the end of the file
- * Returns NULL if an error occur
-*/
 char	*get_next_line(int fd)
 {
 	static char	*buffer[FD_MAX + 1];
